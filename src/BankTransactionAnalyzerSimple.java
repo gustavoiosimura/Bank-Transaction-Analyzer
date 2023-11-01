@@ -3,17 +3,31 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class BankTransactionAnalyzerSimple {
-
-    private static final String RESOURCES = "src/bank_data.csv";
+	
+	// The path in which the file should be placed
+    private static final String RESOURCES = "src/resources/";
 
     public static void main(String[] args) throws IOException {
 
-        final Path path = Paths.get(RESOURCES);
-        final List<String> lines = Files.readAllLines(path);
+    	 Scanner scanner = new Scanner(System.in);
+    	 
+         System.out.print("Enter the file name: ");
+         String fileName = scanner.nextLine();
+         scanner.close();
+         
+         // final path for the file
+         final Path path = Paths.get(RESOURCES+fileName);
 
-        double total = 0d;
+         if (!Files.exists(path)) {
+             System.out.println("File not found: " + fileName);
+             return;
+         }
+
+         final List<String> lines = Files.readAllLines(path);
+         double total = 0d;
 
         for (String line : lines) {
 
